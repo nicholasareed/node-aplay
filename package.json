@@ -1,5 +1,5 @@
 {
-  "name": "aplay",
+  "name": "aplay-v1.2.0",
   "version": "1.2.0",
   "description": "aplay wrapper for Node.js",
   "main": "node-aplay.js",
