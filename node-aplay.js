@@ -20,6 +20,7 @@ function Sound (opts) {
   events.EventEmitter.call(this)
   opts = opts || {}
   this.channel = opts.channel || null
+  this.device = opts.device || null
 }
 
 util.inherits(Sound, events.EventEmitter)
@@ -29,6 +30,7 @@ Sound.prototype.play = function (fileName) {
   if (typeof this.process !== 'undefined') this.process.kill('SIGTERM') // avoid multiple play for the same istance
   var args = []
   if (this.channel) args = args.concat(['-c ' + this.channel])
+  if (this.device) args = args.concat(['-D ' + this.device])
   args = args.concat([fileName])
   this.process = spawn(aplayExec, args)
   var self = this
@@ -66,6 +68,10 @@ Sound.prototype.resume = function () {
 }
 Sound.prototype.channel = function (ch) {
   this.channel = ch
+  return this
+}
+Sound.prototype.device = function (d) {
+  this.device = d
   return this
 }
 
