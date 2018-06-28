@@ -50,7 +50,7 @@ Sound.prototype.play = function (fileName) {
   this.process.stdout.on('data', (data) => {
     console.log(`child process stdout:\n${data}`);
   });
-  this.process..stderr.on('data', (data) => {
+  this.process.stderr.on('data', (data) => {
     console.error(`child process stderr:\n${data}`);
   });
   
