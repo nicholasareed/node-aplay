@@ -37,14 +37,14 @@ Sound.prototype.play = function (fileName) {
   var self = this
 
   this.process.on('exit', function (code, sig) {
-    console.log('child process exited with code ${code} and signal ${sig}`);
+    console.log(`child process exited with code ${code} and signal ${sig}`);
     self.stopped = true
     if (code !== null && sig === null) {
       self.emit('complete')
     }
   })
   this.process.on('error', function (error) {
-    console.log('child process error: ${error}`);
+    console.log(`child process error: ${error}`);
   })
   
   this.process.stdout.on('data', (data) => {
