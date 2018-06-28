@@ -32,14 +32,28 @@ Sound.prototype.play = function (fileName) {
   if (this.channel) args = args.concat(['-c ' + this.channel])
   if (this.device) args = args.concat(['-D ' + this.device])
   args = args.concat([fileName])
+  console.log('play args:', aplayExec, JSON.stringify(args));
   this.process = spawn(aplayExec, args)
   var self = this
+
   this.process.on('exit', function (code, sig) {
+    console.log('child process exited with code ${code} and signal ${sig}`);
     self.stopped = true
     if (code !== null && sig === null) {
       self.emit('complete')
     }
   })
+  this.process.on('error', function (error) {
+    console.log('child process error: ${error}`);
+  })
+  
+  this.process.stdout.on('data', (data) => {
+    console.log(`child process stdout:\n${data}`);
+  });
+  this.process..stderr.on('data', (data) => {
+    console.error(`child process stderr:\n${data}`);
+  });
+  
   return this
 }
 Sound.prototype.stop = function () {
